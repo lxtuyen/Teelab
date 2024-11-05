@@ -56,6 +56,9 @@ public class Product {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Resources> resources;
+
     @ManyToOne
     @JoinColumn(name = "categoryType_id", nullable = false)
     private CategoryType categoryType;
