@@ -7,11 +7,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "products")
+@Table(name = "category_type")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
