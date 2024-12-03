@@ -1,6 +1,7 @@
 package com.example.Teelab.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +24,7 @@ public class Product {
     @GeneratedValue
     private UUID id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
     @Column
@@ -52,19 +53,21 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updatedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    private List<ProductVariant> productVariants;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id",nullable = false)
+    @JsonIgnore
     private Category category;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Resources> resources;
-
-    @ManyToOne
-    @JoinColumn(name = "categoryType_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoryType_id",nullable = false)
+    @JsonIgnore
     private CategoryType categoryType;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductVariant> productVariants;
+    private List<Resources> resources;
 
     @PrePersist
     protected void onCreate() {
