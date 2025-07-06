@@ -98,6 +98,8 @@ public class ProductMapper {
                 .rating(product.getRating())
                 .description(product.getDescription())
                 .slug(product.getSlug())
+                .categoryId(product.getCategory().getId())
+                .categoryTypeId(product.getCategoryType().getId())
                 .thumbnail(getProductThumbnail(product.getResources())).build();
     }
 
@@ -105,8 +107,8 @@ public class ProductMapper {
         return resources.stream()
                 .filter(Resources::getIsPrimary)
                 .findFirst()
-                .map(Resources::getUrl) // Lấy URL nếu phần tử không null
-                .orElse("default-thumbnail-url");
+                .map(Resources::getUrl)
+                .orElse("url");
     }
 
     public List<ProductVariantDto> mapProductVariantListToDto(List<ProductVariant> productVariants) {
